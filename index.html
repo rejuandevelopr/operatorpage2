@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operator Incident Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap');
+
+        .oscreen_one{
+            background-image: url('https://i.ibb.co/cYdsCWT/image-5.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh;
+            position: relative;
+        }
+        .device_option{
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(255, 255, 255, 1);
+            z-index: 99;
+        }
+        .device_head{
+            background-color: rgba(255, 255, 255, 1);
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0em;
+        }
+        .device_content{
+            padding: 10px;
+            position: relative;
+        }
+        .cut_body{
+            position: absolute;
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 1);
+            right: -12px;
+            top: 4px;
+            padding: 14px 20px 14px 0;
+            transform: skewY(12deg);
+            z-index: 9;
+        }
+        .cut_bodytwo{
+            position: absolute;
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 1);
+            right: -8px;
+            top: 6px;
+            padding: 14px 20px 14px 0;
+            transform: skewX(12deg);
+            z-index: 9;
+
+        }
+        .device_content button{
+            padding: 5px 10px;
+            border: none;
+            font-size: 22px;
+            background-color: rgba(242, 242, 242, 1) !important;
+            margin-right: 4px;
+        }
+        .device_content button:hover{
+            background-color: #50cd89 !important;
+        }
+
+        /* Site */
+        .site_nav{
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 1);
+            z-index: 99;
+
+        }
+        .site_head{
+            background-color: rgba(255, 255, 255, 1);
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0em;
+        }
+        .site_content{
+            padding: 10px;
+            position: relative;
+        }
+        .site_content button{
+            padding: 5px 10px;
+            border: none;
+            background-color: rgba(242, 242, 242, 1) !important;
+            margin-right: 4px;
+        }
+        .site_content button i{
+            font-size: 22px;
+        }
+        .site_content button:hover{
+            background-color: #595959 !important;
+            color: white;
+        }
+        .site_body{
+            position: absolute;
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 1);
+            left: -12px;
+            top: 16px;
+            padding: 14px 20px 14px 0;
+            transform: skewY(12deg);
+            z-index: 9;
+        }
+        .site_bodytwo{
+            position: absolute;
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 1);
+            left: -8px;
+            top: 14px;
+            padding: 14px 11px 14px 0;
+            transform: skewX(12deg);
+            z-index: 9;
+        }
+
+        /* Level Start */
+        .level_nav{
+            position: absolute;
+            top: 200px;
+            right: 0;
+            background-color: rgba(255, 255, 255, 1);
+            z-index: 99;
+            border: 2px solid rgba(255, 255, 255, 1);
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        .level_head{
+            background-color: rgba(255, 255, 255, 1);
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0em;
+            padding: 5px;
+        }
+        .level_content{
+            padding: 10px 6px 10px 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .level_content button{
+            padding: 5px 10px;
+            border: none;
+            background-color: rgba(242, 242, 242, 1) !important;
+            margin-right: 4px;
+            margin-bottom: 8px;
+        }
+        .level_content button:hover{
+            background-color: #595959 !important;
+            color: white;
+        }
+        .level_content button:nth-child(4){
+            margin-bottom: 0;
+        }
+
+        /* System Nav */
+        .system_nav{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 1);
+            z-index: 99;
+            overflow: hidden;
+        }
+        .sysytem_head{
+            background-color: rgba(255, 255, 255, 1);
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0em;
+            padding: 5px;
+
+        }
+        .system_content{
+            padding: 10px;
+            position: relative;
+        }
+        .system_content .row .col-2{
+            display: flex;
+            flex-direction: column;
+            padding: 2px !important;
+        }
+        .system_content .row .col-2 button{
+            padding: 5px 10px;
+            border: none;
+            background-color: rgba(242, 242, 242, 1) !important;
+            margin-right: 4px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        .system_content .row .col-2 button:hover{
+            background-color: #595959 !important;
+        }
+        .system_body{
+            position: absolute;
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 1);
+            left: -16px;
+            top: 40px;
+            padding: 14px 20px 14px 0;
+            transform: skewY(12deg);
+            z-index: 9;
+        }
+
+
+        /* tools */
+        .tools_nav{
+            position: absolute;
+            top: 200px;
+            left: 0;
+            background-color: rgba(255, 255, 255, 1);
+            z-index: 99;
+            border: 2px solid rgba(255, 255, 255, 1);
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        .tools_head{
+            background-color: rgba(255, 255, 255, 1);
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0em;
+            padding: 5px;
+        }
+        .tools_content{
+            padding: 10px 6px 10px 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .tools_content button{
+            padding: 5px 10px;
+            border: none;
+            background-color: rgba(242, 242, 242, 1) !important;
+            margin-right: 4px;
+            margin-bottom: 8px;
+        }
+        .tools_content button:hover{
+            background-color: #595959 !important;
+            color: white;
+        }
+        .tools_content button:nth-child(3){
+            margin-bottom: 0;
+        }
+
+        /* Video screen */
+        .videoscreen_option{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(255, 255, 255, 1);
+            z-index: 99;
+        }
+        .videoscreen_option_head{
+            background-color: rgba(255, 255, 255, 1);
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0em;
+        }
+        .videoscreen_content{
+            padding: 10px;
+            position: relative;
+        }
+        .videoscreen_content button{
+            border: none;
+            margin-right: 4px;
+            background-color: transparent !important;
+        } 
+        .videoscreen_content button i{
+            font-size: 22px;
+        }
+        /* Video wall */
+        .videowall_option{
+            position: absolute;
+            bottom: 0;
+            left: 235px;
+            background-color: rgba(255, 255, 255, 1);
+            z-index: 99;
+        }
+        .videowall_option_head{
+            background-color: rgba(255, 255, 255, 1);
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0em;
+        }
+        .videowall_content{
+            padding: 10px;
+            position: relative;
+        }
+        .videowall_content button{
+            border: none;
+            margin-right: 4px;
+            background-color: transparent !important;
+        } 
+        .vcut_body{
+            position: absolute;
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 1);
+            right: -12px;
+            top: 14px;
+            padding: 14px 20px 14px 0;
+            transform: skewY(12deg);
+            z-index: 9;
+        }
+        .vcut_bodytwo{
+            position: absolute;
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 1);
+            right: -8px;
+            top: 16px;
+            padding: 14px 20px 14px 0;
+            transform: skewX(12deg);
+            z-index: 9;
+        }
+
+
+
+        @media screen and (max-width:992px) {
+            .device_content button{
+                font-size: 10px;
+            }
+            .site_content{
+                font-size: 10px;
+            }
+            .level_content{
+                font-size: 10px;
+            }
+            .level_content img{
+                height: 20%;
+                width: 20%;
+            }
+            .tools_nav{
+                font-size: 10px;
+            }
+
+            .videoscreen_content{
+                font-size: 10px;
+            }
+            .videoscreen_content img{
+                height: 30%;
+                width: 30%;
+            }
+            .videowall_option{
+                bottom: 140px;
+                left: 0;
+            }
+            .videowall_content{
+                font-size: 10px;
+            }
+            .videowall_content img{
+                height: 30%;
+                width: 30%;
+            }
+
+            .system_nav{
+                font-size: 10px;
+
+            }
+            .system_content img{
+                 height: 35%;
+                 width: 35%;
+            }
+
+        }
+
+        @media screen and (max-width:768px) {
+            .tools_nav{
+                top: 120px;
+            }
+            .videowall_content button{
+                padding-left: 2x;
+                padding-right: 0px;
+            }
+            .level_nav{
+                top: 120px;
+            }
+        }
+
+        @media screen and (max-width:578px){
+            .device_content button{
+                font-size: 5px;
+            }
+            .site_content{
+                font-size: 4px;
+            }
+            .level_content{
+                font-size: 7px;
+            }
+            .level_content img{
+                height: 18%;
+                width: 18%;
+            }
+            .tools_nav{
+                font-size: 7px;
+            }
+
+            .videoscreen_content{
+                font-size: 7px;
+            }
+            .videoscreen_content img{
+                height: 25%;
+                width: 25%;
+            }
+
+
+            
+            .videowall_content{
+                font-size: 7px;
+            }
+            .videowall_content img{
+                height: 30%;
+                width: 30%;
+            }
+
+            .system_nav{
+                font-size: 7px;
+
+            }
+            .system_content img{
+                 height: 25%;
+                 width: 25%;
+            }
+
+            .videowall_content button{
+                width: 60px;
+            }
+            .tools_nav{
+                top: 80px;
+            }
+            .videowall_option{
+                bottom: 200px;
+                left: 0;
+            }
+            .videoscreen_option{
+                bottom: 125px;
+            }
+            .level_nav{
+                top: 90px;
+            }
+            .vcut_body{
+                visibility: hidden;
+            }
+            .vcut_bodytwo{
+                visibility: hidden;
+            }
+            
+        }
+
+        @media screen and (max-width:350px) {
+            .device_content button{
+                font-size: 4px;
+            }
+            .site_content{
+                font-size: 3px;
+            }
+            .level_content{
+                font-size: 4px;
+            }
+            .level_content img{
+                height: 14%;
+                width: 14%;
+            }
+            .tools_nav{
+                font-size: 4px;
+            }
+
+            .videoscreen_content{
+                font-size: 4px;
+            }
+            .videoscreen_content img{
+                height: 18%;
+                width: 18%;
+            }
+
+
+            
+            .videowall_content{
+                font-size: 4px;
+            }
+            .videowall_content img{
+                height: 20%;
+                width: 20%;
+            }
+
+            .system_nav{
+                font-size: 4px;
+
+            }
+            .system_content img{
+                 height: 18%;
+                 width: 18%;
+            }
+
+            .videowall_content button{
+                width: 50px;
+            }
+            .tools_nav{
+                top: 80px;
+            }
+            .videowall_option{
+                bottom: 200px;
+                left: 0;
+            }
+            .videoscreen_option{
+                bottom: 125px;
+            }
+            .level_nav{
+                top: 90px;
+            }
+            .vcut_body{
+                visibility: hidden;
+            }
+            .vcut_bodytwo{
+                visibility: hidden;
+            }
+        }
+        
+
+        
+    </style>
+</head>
+<body>
+
+    <section class="oscreen_one">
+
+        <div class="device_option">
+            <div class="device_head text-center shadow-sm">Device Name</div>
+            <div class="device_content">
+                <button><i class="fa-solid fa-arrow-left" style="color: #595959;"></i></button>
+                <button><i class="fa-solid fa-house" style="color: #595959;" ></i></button>
+                <button><i class="fa-solid fa-arrow-right" style="color: #595959;" ></i></button>
+                <button><i class="fa-solid fa-gear" style="color: #595959;" ></i></button>
+                <div class="cut_body"></div>
+                <div class="cut_bodytwo"></div>
+            </div>
+        </div>
+
+     
+        <div class="site_nav">
+                <div class="site_head text-center shadow-sm">Site Navigation</div>
+                <div class="site_content">
+                   <button><i class="fa-solid fa-building" style="color: #50cd89;"></i><br>Building 1</button>
+                   <button><i class="fa-solid fa-building" style="color: #50cd89;"></i><br>Building 2</button>
+                   <button><i class="fa-solid fa-building" style="color: #50cd89;"></i><br>Building 3</button>
+                   <button><i class="fa-solid fa-building" style="color: #50cd89;"></i><br>Building 4</button>
+                   <div class="site_body"></div>
+                   <div class="site_bodytwo"></div>
+              </div>
+        </div>
+            
+
+        <div class="level_nav">
+            <div class="level_head text-center shadow-sm">Level Navigation</div>
+            <div class="level_content">
+                <button><img src="https://i.ibb.co/vXmqYcH/Group-1000006912.png" alt="Level logo"><br>Level 1</button>
+                <button><img src="https://i.ibb.co/vXmqYcH/Group-1000006912.png" alt="Level logo"><br>Level 2</button>
+                <button><img src="https://i.ibb.co/vXmqYcH/Group-1000006912.png" alt="Level logo"><br>Level 3</button>
+                <button><img src="https://i.ibb.co/vXmqYcH/Group-1000006912.png" alt="Level logo"><br>Level 4</button>
+            </div>
+        </div>
+
+
+        <div class="system_nav">
+            <div class="site_head text-center shadow-sm">System Navigation</div>
+            <div class="system_content">
+                <div class="row">
+                    <div class="col-2 text-center">
+                        <button><img src="https://i.ibb.co/dcRfZ21/Group.png" alt="system icon"></i><br><img src="https://i.ibb.co/72NDFhT/Rectangle-543.png" alt="system icon"></button>
+                        <span>UVSS</span>
+                    </div>
+                    <div class="col-2 text-center ">
+                        <button><img src="https://i.ibb.co/SvsWVpF/Vector-6.png" alt="system icon"><br><img src="https://i.ibb.co/72NDFhT/Rectangle-543.png" alt="system icon"></button>
+                        <span>Wireless Padlock</span>
+                    </div>
+                    <div class="col-2 text-center">
+                        <button><img src="https://i.ibb.co/z29vwfF/Vector-7.png" alt="system icon"><br><img src="https://i.ibb.co/72NDFhT/Rectangle-543.png" alt="system icon"></button>
+                        <span>Door Access</span>
+                    </div>
+                    <div class="col-2 text-center">
+                        <button><img src="https://i.ibb.co/bsjKDMX/Vector-3.png" alt="system icon"><br><img src="https://i.ibb.co/72NDFhT/Rectangle-543.png" alt="system icon"></button>
+                        <span>CCTV</span>
+                    </div>
+                    <div class="col-2 text-center">
+                        <button><img src="https://i.ibb.co/qsgq21f/Vector-4.png" alt="system icon"><br><img src="https://i.ibb.co/72NDFhT/Rectangle-543.png" alt="system icon"></button>
+                        <span>Fire Alarm</span>
+                    </div>
+                    <div class="col-2 text-center">
+                        <button><img src="https://i.ibb.co/4g8fVm2/Vector-5.png" alt="system icon"><br><img src="https://i.ibb.co/72NDFhT/Rectangle-543.png" alt="system icon"></button>
+                        <span>FR Tablet</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tools_nav">
+            <div class="tools_head text-center shadow-sm">Tools</div>
+            <div class="tools_content">
+                <button><i class="fa-solid fa-eye" style="color: #50cd89;"></i><br>Open</button>
+                <button><i class="fa-solid fa-gear" style="color: #50cd89;"></i><br>Settings</button>
+                <button><i class="fa-solid fa-user" style="color: #50cd89;"></i><br>User</button>
+            </div>
+        </div>
+
+        <div class="videoscreen_option">
+            <div class="videoscreen_option_head text-center shadow-sm">Video Screen</div>
+            <div class="videoscreen_content">
+                <button><img src="https://i.ibb.co/R7GqxKL/Group-1000006918.png" alt="Video Logo"><br>Layout A</button>
+                <button><img src="https://i.ibb.co/vBLCNn8/Group-1000006919.png" alt="Video Logo"><br>Layout B</button>
+            </div>
+        </div>
+
+        <div class="videowall_option">
+            <div class="videowall_option_head text-center shadow-sm">Video Wall</div>
+            <div class="videowall_content">
+                <button><img src="https://i.ibb.co/R7GqxKL/Group-1000006918.png" alt="Video Logo"><br>Layout A</button>
+                <button><img src="https://i.ibb.co/wLmLhnv/Group-1000006927.png" alt="Video Logo"><br>Layout B</button>
+                <button><img src="https://i.ibb.co/R7GqxKL/Group-1000006918.png" alt="Video Logo"><br>Salvo</button>
+                <button><img src="https://i.ibb.co/54LxHpQ/Group-1000006923.png" alt="Video Logo"><br>Secquence</button>
+
+                <div class="vcut_body"></div>
+                <div class="vcut_bodytwo"></div>
+            </div>
+        </div>
+
+        
+
+
+
+
+    </section>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
